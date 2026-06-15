@@ -163,7 +163,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   border-radius:3px;filter:blur(3px);opacity:0.6;}
 
 /* ===== ABOUT ===== */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:28px 32px 50px;max-width:1360px;margin:0 auto;}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:28px 32px 50px;max-width:1360px;margin:0 auto;}
 .ac{background:var(--cb);border:1px solid var(--cbr);border-radius:18px;padding:32px;
   text-decoration:none;color:#fff;transition:all .35s;display:block;position:relative;overflow:hidden;}
 .ac::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
@@ -237,9 +237,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .jh::before{display:none;}
 .jh-txt h2{font-size:24px;font-weight:800;margin-bottom:12px;}
 .jh-txt p{color:var(--txt);line-height:1.75;font-size:14px;margin-bottom:12px;}
-.jh-img img{max-height:300px;border-radius:18px;
-  box-shadow:0 16px 48px rgba(97,50,253,.4);width:100%;object-fit:cover;
-  transition:transform 0.3s;}
+.jh-img img{max-height:300px;border-radius:0;box-shadow:none;width:100%;object-fit:cover;transition:transform 0.3s;background:transparent;}
 .jh-img img:hover{transform:scale(1.02);}
 
 /* ===== EMBEDDED AI ===== */
@@ -489,7 +487,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-  .about-grid,.na,.jh{grid-template-columns:1fr;}
+  .about-grid,.na,.jh{grid-template-columns:1frgrid-template-columns:1fr;}
   #jd{width:calc(100vw - 28px);right:14px;bottom:96px;}
   .home-cards{padding:0 18px 40px;}
 }
@@ -504,7 +502,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   position:relative;background:transparent;}
 .joule-anim-svg{width:100%;max-width:300px;height:auto;
   animation:jgemFloat 4s ease-in-out infinite;
-  filter:drop-shadow(0 8px 32px rgba(97,50,253,0.6));}
+  filter:none;background:transparent;}
 @keyframes jgemFloat{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-12px);}
@@ -654,6 +652,116 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 }
 /* Remove old conflicting Joule anim classes */
 .j-gem,.j-crown,.j-sparkle,.j-ring,.j-orbit,.j-orbit2,.j-culet{animation:none;}
+
+/* Ensure hidden home cards take no space */
+.hc[style*="display:none"]{display:none !important;width:0;padding:0;margin:0;}
+
+/* Planning Assistant highlighted chip */
+.ovch-active{
+  background:linear-gradient(135deg,rgba(97,50,253,0.45),rgba(171,25,224,0.35)) !important;
+  border:1.5px solid rgba(146,60,248,0.7) !important;
+  color:#fff !important;
+  font-weight:700;
+  box-shadow:0 0 16px rgba(97,50,253,0.4), inset 0 0 8px rgba(146,60,248,0.15);
+  position:relative;
+  animation:ovch-glow 2.5s ease-in-out infinite;
+}
+@keyframes ovch-glow{
+  0%,100%{box-shadow:0 0 10px rgba(97,50,253,0.35),inset 0 0 6px rgba(146,60,248,0.1);}
+  50%{box-shadow:0 0 22px rgba(97,50,253,0.65),inset 0 0 12px rgba(146,60,248,0.25);}
+}
+.ovch-active svg{
+  filter:drop-shadow(0 0 6px rgba(146,60,248,0.9));
+}
+.ovch-badge{
+  display:inline-flex;align-items:center;
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  color:#fff;font-size:9px;font-weight:800;letter-spacing:0.8px;
+  text-transform:uppercase;padding:2px 7px;border-radius:50px;
+  margin-left:8px;vertical-align:middle;
+  box-shadow:0 2px 6px rgba(97,50,253,0.5);
+}
+
+/* Joule suggestion chips */
+.j-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.j-sug-btn{
+  background:rgba(97,50,253,0.18);
+  border:1px solid rgba(97,50,253,0.38);
+  color:#d4b3ff;font-size:11.5px;font-weight:600;
+  padding:6px 12px;border-radius:50px;cursor:pointer;
+  transition:all 0.2s;text-align:left;
+}
+.j-sug-btn:hover{
+  background:rgba(97,50,253,0.38);
+  border-color:var(--c2);color:#fff;
+  transform:translateY(-1px);
+}
+/* Better Joule message formatting */
+.jm.b p{margin:0;line-height:1.6;}
+.jm.b p+p{margin-top:7px;}
+.jm.b strong{color:#fff;font-weight:700;}
+.jm.b ul{margin:6px 0 6px 14px;padding:0;}
+.jm.b li{margin-bottom:3px;line-height:1.5;}
+/* Joule message typing area improvements */
+#jca{scrollbar-width:thin;scrollbar-color:rgba(97,50,253,0.3) transparent;}
+/* Character count / input hint */
+.j-input-hint{font-size:10px;color:#bbb;text-align:right;padding:2px 4px 0;}
+
+/* ===== PAGE BOTTOM NAV BUTTONS ===== */
+.page-footer-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0 32px 32px;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.pnb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 20px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(97,50,253,0.5);
+  background: rgba(6,3,16,0.88);
+  backdrop-filter: blur(16px);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  letter-spacing: 0.3px;
+}
+.pnb:hover {
+  background: rgba(97,50,253,0.35);
+  border-color: var(--c2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(97,50,253,0.4);
+}
+.pnb svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.pnb-back {
+  border-color: rgba(97,50,253,0.4);
+}
+.pnb-ss {
+  border-color: rgba(171,25,224,0.45);
+  background: rgba(6,3,16,0.88);
+}
+.pnb-ss:hover {
+  background: rgba(171,25,224,0.3);
+  border-color: var(--c3);
+  box-shadow: 0 8px 28px rgba(171,25,224,0.4);
+}
 </style>
 </head>
 <body>
@@ -723,9 +831,9 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <div class="nav-area">
     <button class="nb active" id="nav-home" onclick="showPage('home')"><svg class="ni"><use href="#s-home"/></svg><span>Home</span></button>
     <button class="nb" id="nav-about" onclick="showPage('about')"><svg class="ni"><use href="#s-info"/></svg><span>About IBP</span></button>
-    <button class="nb" id="nav-business" onclick="showPage('business')"><svg class="ni"><use href="#s-flow"/></svg><span>Business</span></button>
+    <button class="nb" id="nav-business" onclick="showPage('business')"><svg class="ni"><use href="#s-flow"/></svg><span>Business Process</span></button>
     <button class="nb" id="nav-ai" onclick="showPage('ai')"><svg class="ni"><use href="#s-brain"/></svg><span>AI in IBP</span></button>
-    <button class="nb" id="nav-agents" onclick="showPage('agents')"><svg class="ni"><use href="#s-bolt"/></svg><span>AI Agents</span></button>
+    <button class="nb" id="nav-agents" onclick="showPage('agents')" style="display:none"><svg class="ni"><use href="#s-bolt"/></svg><span>AI Agents</span></button>
     <button class="nb" id="nav-game" onclick="showPage('game')"><svg class="ni"><use href="#s-game"/></svg><span>IBP Game</span></button>
   </div>
 </nav>
@@ -756,7 +864,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
     <div class="hc" onclick="showPage('about')" data-delay="0"><div class="hci"><svg><use href="#s-doc"/></svg></div><div class="hct">About SAP IBP</div><div class="hcd">Annual reports and official product information on SAP Integrated Business Planning.</div><div class="hc-arrow">&rarr;</div></div>
     <div class="hc" onclick="showPage('business')" data-delay="100"><div class="hci"><svg><use href="#s-flow"/></svg></div><div class="hct">Business Processes</div><div class="hcd">Interactive Value Journeys for demand, supply resilience, disruption management and more.</div><div class="hc-arrow">&rarr;</div></div>
     <div class="hc" onclick="showPage('ai')" data-delay="200"><div class="hci"><svg><use href="#s-brain"/></svg></div><div class="hct">AI in SAP IBP</div><div class="hcd">SAP Joule, Embedded AI capabilities, and AI Agents powering next-gen supply chain intelligence.</div><div class="hc-arrow">&rarr;</div></div>
-    <div class="hc" onclick="showPage('agents')" data-delay="300"><div class="hci"><svg><use href="#s-bolt"/></svg></div><div class="hct">SAP IBP AI Agents</div><div class="hcd">Autonomous agents for exception management, footprint optimization, inventory allocation and more.</div><div class="hc-arrow">&rarr;</div></div>
+    <div class="hc" onclick="showPage('agents')" data-delay="300" style="display:none"><div class="hci"><svg><use href="#s-bolt"/></svg></div><div class="hct">SAP IBP AI Agents</div><div class="hcd">Autonomous agents for exception management, footprint optimization, inventory allocation and more.</div><div class="hc-arrow">&rarr;</div></div>
     <div class="hc" onclick="showPage('game')" data-delay="400"><div class="hci"><svg><use href="#s-game"/></svg></div><div class="hct">IBP Game &mdash; The Platformer</div><div class="hcd">Experience SAP IBP in a gamified interactive learning adventure.</div><div class="hc-arrow">&rarr;</div></div>
     <div class="hc" onclick="toggleJoule()" data-delay="500"><div class="hci"><svg><use href="#s-gem"/></svg></div><div class="hct">Ask Joule AI</div><div class="hcd">Your AI assistant &mdash; ask anything about IBP features, agents, and processes.</div><div class="hc-arrow">&rarr;</div></div>
   </div>
@@ -780,6 +888,12 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <p>Visit the official SAP IBP product page for the latest features, pricing, and getting started information.</p>
       <div class="el"><svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8"><use href="#s-link"/></svg>Visit SAP.com &rarr;</div>
     </a>
+    <a class="ac" href="https://www.sap.com/products/scm/integrated-business-planning/roi-calculator.html?utm_mediatype=video&utm_content=not_specified&utm_campaign=everyonesocial&utm_medium=linkedin&utm_source=ea3e2aab-07ef-44c8-af02-cff5854498a0&es_id=0d0713d7ec" target="_blank" rel="noopener">
+      <div style="color:var(--c2);margin-bottom:14px"><svg style="width:40px;height:40px;stroke:currentColor;fill:none;stroke-width:1.6"><use href="#s-chart"/></svg></div>
+      <h3>SAP IBP Value</h3>
+      <p>Calculate the business value and ROI of SAP Integrated Business Planning for your organization — explore quantified benefits across service levels, inventory, and operational efficiency.</p>
+      <div class="el"><svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8"><use href="#s-link"/></svg>Explore IBP ROI Calculator &rarr;</div>
+    </a>
   </div>
   <div style="max-width:1360px;margin:0 auto;padding:0 32px 56px;">
     <div style="background:var(--cb);border:1px solid var(--cbr);border-radius:18px;padding:32px;">
@@ -793,6 +907,16 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       </div>
     </div>
   </div>
+  <div class="page-footer-btns">
+    <button class="pnb pnb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      BACK
+    </button>
+    <button class="pnb pnb-ss" onclick="startScreensaver()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      SCREENSAVER
+    </button>
+  </div>
   <footer><p>&copy; 2026 SAP SE. All rights reserved.</p></footer>
 </div>
 
@@ -800,17 +924,28 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 <div id="page-business" class="page">
   <div class="sh"><h2><svg><use href="#s-flow"/></svg>SAP IBP Business Processes</h2><p>Interactive Value Journeys and Business Use Cases for SAP Integrated Business Planning.</p></div>
   <div class="sd"></div>
-  <div style="max-width:1360px;margin:0 auto;padding:18px 32px 0;"><h3 style="font-size:16px;font-weight:700;color:#c9a7fb;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8"><use href="#s-target"/></svg>Interactive Value Journey (IVJ)</h3></div>
+  <div style="max-width:1360px;margin:0 auto;padding:18px 32px 0;"><h3 style="font-size:16px;font-weight:700;color:#c9a7fb;margin-bottom:18px;display:flex;align-items:center;gap:8px;"><svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8"><use href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/807634b5-b8f9-4c04-b42b-b46595464a0a/intro"/></svg>Interactive Value Journey (IVJ)</h3></div>
   <div class="bp-grid">
-    <div class="ic"><h3>Demand Forecasting with AI</h3><p>Experience AI-powered demand forecasting in SAP IBP through an interactive value journey.</p><a class="il" href="https://content-discovery.int.sap/explore?assetId=fe7670aa-cfe8-4e16-8065-bb50f0f79a4e&shareType=link" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>IVJ &mdash; Demand Forecasting in SAP IBP with AI</span></a></div>
-    <div class="ic"><h3>Risk Resilient Supply Chain</h3><p>Better planning for a risk resilient and sustainable supply chain.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/807634b5-b8f9-4c04-b42b-b46595464a0a/intro" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>Better Planning for a Risk Resilient and Sustainable Supply Chain</span></a></div>
-    <div class="ic"><h3>Custom Alerts with AI</h3><p>Interactive journey for custom alerts with SAP IBP and AI capabilities.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/7582914c-b52a-4c41-bdee-1087bae44043/intro" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>IVJ &mdash; Custom Alerts with SAP IBP &amp; AI</span></a></div>
-    <div class="ic"><h3>Navigate Supply Chain Disruptions</h3><p>Intelligently navigate through supply chain disruptions with SAP IBP.</p><a class="il" href="https://content-discovery.int.sap/assets/3f073328-7d75-45e3-99d0-7bdab423e068?referer=%2Fproduct%2F923402d6-e008-4f23-a8f2-85d72693abb2%2Fview%2F4d067f3f-6ae1-4112-a1ff-9c2cc27fcd14" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>IVJ &mdash; Navigate through Supply Chain Disruptions</span></a></div>
-    <div class="ic"><h3>AI-Powered Resilient Supply Chain</h3><p>Discover how AI powers a more resilient supply chain with SAP IBP.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/fd9e6c13-50f9-4a26-a1bd-e49199f42e4a" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>AI-Powered Resilient Supply Chain | IVJ</span></a></div>
-    <div class="ic"><h3>Generative AI &mdash; Planning Assistant by Joule</h3><p>Generative AI in SAP IBP &ndash; Planning Assistant powered by Joule (Vision).</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/712be1b9-5e25-4583-93c6-88ce5744a450" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>Generative AI in SAP IBP &ndash; Planning Assistant powered by Joule</span></a></div>
+    <div class="ic"><h3>Demand Forecasting with AI</h3><p>Experience AI-powered demand forecasting in SAP IBP through an interactive value journey.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/712be1b9-5e25-4583-93c6-88ce5744a450/intro" target="_blank" rel="noopener"><svg><use href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/712be1b9-5e25-4583-93c6-88ce5744a450/intro"/></svg><span>IVJ &mdash; Demand Forecasting in SAP IBP with AI</span></a></div>
+    <div class="ic"><h3>Risk Resilient Supply Chain</h3><p>Better planning for a risk resilient and sustainable supply chain.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/712be1b9-5e25-4583-93c6-88ce5744a450/intro" target="_blank" rel="noopener"><svg><use href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/fd9e6c13-50f9-4a26-a1bd-e49199f42e4a/intro"/></svg><span>Better Planning for a Risk Resilient and Sustainable Supply Chain</span></a></div>
+    <div class="ic"><h3>Custom Alerts with AI</h3><p>Interactive journey for custom alerts with SAP IBP and AI capabilities.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/fd9e6c13-50f9-4a26-a1bd-e49199f42e4a/intro" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>IVJ &mdash; Custom Alerts with SAP IBP &amp; AI</span></a></div>
+    <div class="ic" style="display:none"><h3>Navigate Supply Chain Disruptions</h3><p>Intelligently navigate through supply chain disruptions with SAP IBP.</p><a class="il" href="https://content-discovery.int.sap/assets/3f073328-7d75-45e3-99d0-7bdab423e068?referer=%2Fproduct%2F923402d6-e008-4f23-a8f2-85d72693abb2%2Fview%2F4d067f3f-6ae1-4112-a1ff-9c2cc27fcd14" target="_blank" rel="noopener"><svg><use href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/7582914c-b52a-4c41-bdee-1087bae44043/intro"/></svg><span>IVJ &mdash; Navigate through Supply Chain Disruptions</span></a></div>
+    <div class="ic"><h3>AI-Powered Resilient Supply Chain</h3><p>Discover how AI powers a more resilient supply chain with SAP IBP.</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/journey/7582914c-b52a-4c41-bdee-1087bae44043/intro" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>AI-Powered Resilient Supply Chain | IVJ</span></a></div>
+    <div class="ic" style="display:none"><h3>Generative AI &mdash; Planning Assistant by Joule</h3><p>Generative AI in SAP IBP &ndash; Planning Assistant powered by Joule (Vision).</p><a class="il" href="https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/712be1b9-5e25-4583-93c6-88ce5744a450" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>Generative AI in SAP IBP &ndash; Planning Assistant powered by Joule</span></a></div>
+  </div>
+  <div class="page-footer-btns">
+    <button class="pnb pnb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      BACK
+    </button>
+    <button class="pnb pnb-ss" onclick="startScreensaver()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      SCREENSAVER
+    </button>
   </div>
   <footer><p>&copy; 2026 SAP SE. All rights reserved.</p></footer>
 </div>
+
 <!-- AI IN IBP PAGE -->
 <div id="page-ai" class="page">
   <div class="sh"><h2><svg><use href="#s-brain"/></svg>AI in SAP IBP</h2><p>Comprehensive AI capabilities embedded in SAP IBP &mdash; from SAP Joule to autonomous planning agents.</p></div>
@@ -818,7 +953,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <div class="ai-tabs">
     <button class="at active" id="tab-joule" onclick="showAiTab('joule')"><svg><use href="#s-gem"/></svg><span>SAP Joule</span></button>
     <button class="at" id="tab-emb" onclick="showAiTab('emb')"><svg><use href="#s-cpu"/></svg><span>Embedded AI</span></button>
-    <button class="at" id="tab-agai" onclick="showAiTab('agai')"><svg><use href="#s-bolt"/></svg><span>AI Agents</span></button>
+    <button class="at" id="tab-agai" onclick="showPage('agents')"><svg><use href="#s-bolt"/></svg><span>AI Agents</span></button>
   </div>
   <div class="ai-cnt">
     <div id="asub-joule" class="asub active">
@@ -836,15 +971,8 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <svg class="joule-anim-svg" width="220" height="214" viewBox="0 0 100 97" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="janim-fill" x1="30%" y1="0%" x2="70%" y2="100%">
-        <stop offset="0%" stop-color="#6132FD"/>
-        <stop offset="40%" stop-color="#923CF8"/>
-        <stop offset="75%" stop-color="#AB19E0"/>
-        <stop offset="100%" stop-color="#8b00cc"/>
-      </linearGradient>
-      <linearGradient id="janim-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#a5f3fc" stop-opacity="0.98"/>
-        <stop offset="40%" stop-color="#67e8f9" stop-opacity="0.92"/>
-        <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.88"/>
+        <stop offset="0%" stop-color="#6132FD"/><stop offset="40%" stop-color="#923CF8"/>
+        <stop offset="75%" stop-color="#AB19E0"/><stop offset="100%" stop-color="#8b00cc"/>
       </linearGradient>
       <radialGradient id="janim-inner" cx="50%" cy="42%" r="45%">
         <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
@@ -854,7 +982,6 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <feGaussianBlur stdDeviation="5" result="blur"/>
         <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
-      
       <filter id="janim-star-glow" x="-100%" y="-100%" width="300%" height="300%">
         <feGaussianBlur stdDeviation="3" result="blur"/>
         <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -866,38 +993,24 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
     </defs>
-
-    <!-- Main gem body with purple outer glow -->
-    <path class="janim-body"
-      d="M50,3 C65,3 78,3 84,6 L99,32 C99,33 99,34 98,35 L50,97 L2,35 C1,34 1,33 1,32 L16,6 C22,3 35,3 50,3 Z"
-      fill="url(#janim-fill)" filter="url(#janim-outer-glow)"/>
-    <!-- Inner radial highlight -->
-    <path d="M50,3 C65,3 78,3 84,6 L99,32 C99,33 99,34 98,35 L50,97 L2,35 C1,34 1,33 1,32 L16,6 C22,3 35,3 50,3 Z"
-      fill="url(#janim-inner)"/>
-    <!-- 4-point star sparkle -->
-    <path class="janim-star"
-      d="M50,32 L53,43 L64,46 L53,49 L50,60 L47,49 L36,46 L47,43 Z"
-      fill="white" filter="url(#janim-star-glow)"/>
-
-    <!-- JOULE label -->
-    <text x="50" y="92" text-anchor="middle"
-      font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
-      font-size="0" fill="transparent">JOULE</text>
+    <path class="janim-body" d="M50,3 C65,3 78,3 84,6 L99,32 C99,33 99,34 98,35 L50,97 L2,35 C1,34 1,33 1,32 L16,6 C22,3 35,3 50,3 Z" fill="url(#janim-fill)"/>
+    <path d="M50,3 C65,3 78,3 84,6 L99,32 C99,33 99,34 98,35 L50,97 L2,35 C1,34 1,33 1,32 L16,6 C22,3 35,3 50,3 Z" fill="url(#janim-inner)"/>
+    <path class="janim-star" d="M50,32 L53,43 L64,46 L53,49 L50,60 L47,49 L36,46 L47,43 Z" fill="white" filter="url(#janim-star-glow)"/>
   </svg>
 </div>
         </div>
       </div>
-    </div>
-    <!-- Joule Capabilities Grid - horizontal row -->
-    <div class="info-grid" style="grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px;">
-      <div class="ic2"><svg><use href="#s-spark"/></svg><div class="ic2-t">Conversational AI</div><div class="ic2-s">Natural language planning</div></div>
-      <div class="ic2"><svg><use href="#s-search"/></svg><div class="ic2-t">Exception Analysis</div><div class="ic2-s">Root-cause &amp; recommendations</div></div>
-      <div class="ic2"><svg><use href="#s-chart"/></svg><div class="ic2-t">Planning Insights</div><div class="ic2-s">AI-generated demand &amp; supply insights</div></div>
-      <div class="ic2"><svg><use href="#s-zap"/></svg><div class="ic2-t">Automated Actions</div><div class="ic2-s">Trigger workflows via chat</div></div>
+      <!-- Joule Capabilities Grid - horizontal row -->
+      <div class="info-grid" style="grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px;">
+        <div class="ic2"><svg><use href="#s-spark"/></svg><div class="ic2-t">Conversational AI</div><div class="ic2-s">Natural language planning</div></div>
+        <div class="ic2"><svg><use href="#s-search"/></svg><div class="ic2-t">Exception Analysis</div><div class="ic2-s">Root-cause &amp; recommendations</div></div>
+        <div class="ic2"><svg><use href="#s-chart"/></svg><div class="ic2-t">Planning Insights</div><div class="ic2-s">AI-generated demand &amp; supply insights</div></div>
+        <div class="ic2"><svg><use href="#s-zap"/></svg><div class="ic2-t">Automated Actions</div><div class="ic2-s">Trigger workflows via chat</div></div>
+      </div>
     </div>
     <div id="asub-emb" class="asub">
-      <div style="margin-bottom:22px;"><h3 style="font-size:18px;font-weight:700;color:#c9a7fb;margin-bottom:7px;display:flex;align-items:center;gap:9px;"><svg style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8"><use href="#s-play"/></svg>Embedded AI Capabilities &mdash; Videos</h3><p style="color:var(--txt);font-size:13px;">Video demonstrations from the SAP Discovery Center.</p></div>
-      <div class="eai-g" id="eai-grid-videos">
+
+      <div class="eai-g">
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-play"/></svg>Excel Add-in AI Planning Assistant</h4></div><div class="eaib"><p>AI planning assistant within the Excel Add-in for IBP.</p><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/e32a154a-933b-400c-996f-c3b823393247/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-play"/></svg>Automatic Outlier Correction</h4></div><div class="eaib"><p>AI-powered detection and correction of demand outliers.</p><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/708721ca-6e0f-472c-9bee-21bb3bb03a1b/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-play"/></svg>Curve Based Planning</h4></div><div class="eaib"><p>Advanced curve-based planning with machine learning.</p><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/ef5842b1-bae5-41cd-8b9a-0399fb1c3e7f/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
@@ -905,8 +1018,8 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-play"/></svg>Forecast Results Analysis</h4></div><div class="eaib"><p>AI-assisted analysis of forecast results and accuracy metrics.</p><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/5fa5aaf1-ef2b-46c9-bf8e-b0038f6c4405/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-play"/></svg>Master Data Consistency Check</h4></div><div class="eaib"><p>Automated master data consistency validation using AI.</p><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/08b50280-d6f0-4731-ba50-a6faa578f9d8/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
       </div>
-      <div style="margin-top:28px;margin-bottom:18px;"><h3 style="font-size:18px;font-weight:700;color:#c9a7fb;margin-bottom:7px;display:flex;align-items:center;gap:9px;"><svg style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8"><use href="#s-eye"/></svg>Embedded AI Capabilities &mdash; Screens</h3><p style="color:var(--txt);font-size:13px;">Additional screen demonstrations and walkthroughs.</p></div>
-      <div class="eai-g" id="eai-grid-screens">
+
+      <div class="eai-g">
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-eye"/></svg>Inventory Optimization Results Analysis</h4></div><div class="eaib"><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/059ce559-77a9-46d7-855b-b193363ee268/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-eye"/></svg>Lead Time Master Data Management</h4></div><div class="eaib"><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/5f28aaf2-0ff3-45a9-af25-ab079d8cd17c/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-eye"/></svg>Machine Learning Alerts</h4></div><div class="eaib"><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/712c445f-4bae-49e6-83fd-210e64c86ca0/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
@@ -916,19 +1029,22 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <div class="eai"><div class="eaih"><h4><svg><use href="#s-eye"/></svg>System Security Check</h4></div><div class="eaib"><a class="el2" href="https://discovery-center.cloud.sap/ai-feature/e29ae1ce-a444-4d21-a0a6-f75fec40ca32/" target="_blank" rel="noopener"><svg><use href="#s-link"/></svg><span>SAP Discovery Center</span></a></div></div>
       </div>
     </div>
-    <div id="asub-agai" class="asub">
-      <div style="margin-bottom:22px;"><h3 style="font-size:18px;font-weight:700;color:#c9a7fb;margin-bottom:7px;">SAP IBP AI Agents</h3><p style="color:var(--txt);font-size:13px;">Click the AI Agents tab for full details and demo videos.</p></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;">
-        <div style="background:rgba(97,50,253,.07);border:1px solid rgba(97,50,253,.18);border-radius:14px;padding:22px;cursor:pointer;transition:all 0.3s;" onclick="showPage('agents');showAgent('planning')" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(97,50,253,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''"><div style="color:var(--c2);margin-bottom:10px"><svg style="width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7"><use href="#s-search"/></svg></div><h4 style="font-weight:700;color:#d4b3ff;margin-bottom:7px;font-size:13px;">Planning Assistant</h4><p style="font-size:12px;color:var(--mu);">Exception detection, root-cause analysis, resolution guidance.</p><div style="margin-top:10px;font-size:12px;color:var(--c2);">&rarr; View Details</div></div>
-        <div style="background:rgba(97,50,253,.07);border:1px solid rgba(97,50,253,.18);border-radius:14px;padding:22px;cursor:pointer;transition:all 0.3s;" onclick="showPage('agents');showAgent('footprint')" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(97,50,253,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''"><div style="color:var(--c2);margin-bottom:10px"><svg style="width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7"><use href="#s-leaf"/></svg></div><h4 style="font-weight:700;color:#d4b3ff;margin-bottom:7px;font-size:13px;">Footprint Optimization Agent</h4><p style="font-size:12px;color:var(--mu);">Identifies emission hotspots, recommends sustainability actions.</p><div style="margin-top:10px;font-size:12px;color:var(--c2);">&rarr; View Details</div></div>
-        <div style="background:rgba(97,50,253,.07);border:1px solid rgba(97,50,253,.18);border-radius:14px;padding:22px;cursor:pointer;transition:all 0.3s;" onclick="showPage('agents');showAgent('inventory')" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(97,50,253,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''"><div style="color:var(--c2);margin-bottom:10px"><svg style="width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.7"><use href="#s-coin"/></svg></div><h4 style="font-weight:700;color:#d4b3ff;margin-bottom:7px;font-size:13px;">Inventory Investment Allocation</h4><p style="font-size:12px;color:var(--mu);">AI-driven strategic allocation balancing service and cost.</p><div style="margin-top:10px;font-size:12px;color:var(--c2);">&rarr; View Details</div></div>
-      </div>
-    </div>
+    <div id="asub-agai" class="asub" style="display:none !important"></div>
+  </div>
+  <div class="page-footer-btns">
+    <button class="pnb pnb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      BACK
+    </button>
+    <button class="pnb pnb-ss" onclick="startScreensaver()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      SCREENSAVER
+    </button>
   </div>
   <footer><p>&copy; 2026 SAP SE. All rights reserved.</p></footer>
 </div>
 
-<!-- AGENTS PAGE -->
+<!-- AI AGENTS PAGE -->
 <div id="page-agents" class="page">
   <div class="sh"><h2><svg><use href="#s-bolt"/></svg>SAP IBP AI Agents</h2><p>Autonomous supply chain management &mdash; from exception handling to sustainability optimization.</p></div>
   <div class="sd"></div>
@@ -939,7 +1055,7 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <div class="ov-ch">
         <div class="ovch"><svg><use href="#s-truck"/></svg>Logistics Assistant</div>
         <div class="ovch"><svg><use href="#s-gear"/></svg>Asset &amp; Service Assistant</div>
-        <div class="ovch"><svg><use href="#s-brain"/></svg>Planning Assistant</div>
+        <div class="ovch ovch-active"><svg><use href="#s-brain"/></svg>Planning Assistant<span class="ovch-badge">Active</span></div>
         <div class="ovch"><svg><use href="#s-cpu"/></svg>Manufacturing Assistant</div>
         <div class="ovch"><svg><use href="#s-spark"/></svg>Product Design Assistant</div>
         <div class="ovch"><svg><use href="#s-net"/></svg>Business Network Assistant</div>
@@ -956,7 +1072,6 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <div class="ach" id="chip-inventory" onclick="showAgent('inventory')"><div class="ach-ic"><svg><use href="#s-coin"/></svg></div><h4>Inventory Investment Allocation Agent</h4><p>Strategic inventory decisions</p></div>
     </div>
 
-    <!-- PLANNING -->
     <div id="agent-planning" class="ad active">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
         <div><h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Exception Management Agent</h2><span class="tag tb">Beta Shipped</span><span class="tag tn">Planning Assistant</span></div>
@@ -977,42 +1092,36 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <div style="margin-top:22px;"><div class="video-label"><svg><use href="#s-play"/></svg>Assistant Hero Demo</div><div class="vw"><video controls preload="metadata"><source src="media1.mp4" type="video/mp4">Your browser does not support video.</video></div></div>
     </div>
 
-    <!-- CUSTOMER -->
     <div id="agent-customer" class="ad">
       <h2 style="font-size:22px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-pkg"/></svg>Customer Orders Confirmation Agent</h2>
       <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:20px;">The Customer Orders Confirmation Agent automates the confirmation of customer orders within SAP IBP, reducing manual effort and accelerating response times. The agent identifies cross-order issues and tracks orders to resolve exceptions faster.</p>
       <div class="video-label"><svg><use href="#s-play"/></svg>Demo Video</div><div class="vw"><video controls preload="metadata"><source src="media2.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
 
-    <!-- CAPACITY -->
     <div id="agent-capacity" class="ad">
       <h2 style="font-size:22px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-gear"/></svg>Long-Term Resource Capacity Shortage Agent</h2>
       <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:20px;">The Long-Term Resource Capacity Shortage Agent monitors and identifies resource capacity shortages in the long-term planning horizon, enabling proactive mitigation before disruptions occur.</p>
       <div class="video-label"><svg><use href="#s-play"/></svg>Demo Video</div><div class="vw"><video controls preload="metadata"><source src="media3.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
 
-    <!-- PHARMA -->
     <div id="agent-pharma" class="ad">
       <h2 style="font-size:22px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-pill"/></svg>Customer Orders Confirmation Agent for Pharma Industry</h2>
       <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:20px;">Specialized for the pharmaceutical industry, this agent handles customer order confirmations with industry-specific compliance requirements and supply constraints unique to pharma manufacturing.</p>
       <div class="video-label"><svg><use href="#s-play"/></svg>Demo Video</div><div class="vw"><video controls preload="metadata"><source src="media4.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
 
-    <!-- ORDER DEPLOYMENT -->
     <div id="agent-order" class="ad">
       <h2 style="font-size:22px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-truck"/></svg>Order Deployment Confirmation Agent</h2>
       <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:20px;">The Order Deployment Confirmation Agent streamlines the order deployment process by automating confirmation workflows, reducing latency in supply chain execution, and ensuring timely order fulfillment.</p>
       <div class="video-label"><svg><use href="#s-play"/></svg>Demo Video</div><div class="vw"><video controls preload="metadata"><source src="media5.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
 
-    <!-- SHORTAGE -->
     <div id="agent-shortage" class="ad">
       <h2 style="font-size:22px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-alert"/></svg>Component Shortage Monitoring Agent</h2>
       <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:20px;">The Component Shortage Monitoring Agent continuously monitors component availability, identifies shortage risks across the bill of materials, and surfaces resolution options to prevent production delays.</p>
       <div class="video-label"><svg><use href="#s-play"/></svg>Demo Video</div><div class="vw"><video controls preload="metadata"><source src="media6.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
 
-    <!-- FOOTPRINT -->
     <div id="agent-footprint" class="ad">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
         <div><h2 style="font-size:22px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-leaf"/></svg>Footprint Optimization Agent</h2><span class="tag tl">Lab Preview</span><span class="tag tn">Planning Assistant</span></div>
@@ -1032,14 +1141,13 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       </div>
     </div>
 
-    <!-- INVENTORY -->
     <div id="agent-inventory" class="ad">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
         <div><h2 style="font-size:22px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:10px;"><svg style="width:24px;height:24px;stroke:var(--c2);fill:none;stroke-width:1.7"><use href="#s-coin"/></svg>Inventory Investment Allocation Agent</h2><span class="tag tl">Lab Preview</span><span class="tag tn">Planning Assistant</span></div>
         <div class="pb"><div class="pa"><svg><use href="#s-user"/></svg></div><div class="pn">Inventory Analyst<strong>Peter</strong></div></div>
       </div>
       <p style="color:#c9a7fb;font-size:14.5px;font-weight:700;margin-bottom:11px;">From manual guesswork to strategic precision.</p>
-      <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:14px;">The Inventory Investment Allocation Agent enables strategic service level and inventory allocation decisions by leveraging AI to streamline the SI&amp;OP review process. Our agent transforms slow, manual processes by generating smart, data-driven scenarios that align finance and supply chain goals.</p>
+      <p style="color:var(--txt);font-size:14px;line-height:1.8;margin-bottom:14px;">The Inventory Investment Allocation Agent enables strategic service level and inventory allocation decisions by leveraging AI to streamline the SI&amp;OP review process.</p>
       <div class="infobox" style="margin-bottom:18px;">Hours not weeks &middot; Smart, dynamically generated scenarios &middot; Data-driven decisions &middot; Finance &amp; supply chain aligned</div>
       <div class="sr" style="margin-bottom:20px;">
         <div class="si"><h5><svg><use href="#s-chart"/></svg>Inventory Analysis &amp; Scenario Exploration</h5><p>Analyzes current inventory levels and explores various scenarios.</p></div>
@@ -1048,11 +1156,21 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         <div class="si"><h5><svg><use href="#s-zap"/></svg>Interactive Decision Support &amp; Execution</h5><p>Planners review AI options and execute decisions with confidence.</p></div>
       </div>
       <div class="na">
-        <div class="nb2"><h4>Need</h4><ul><li>Analysts spend hours manually analyzing inventory data to identify key areas.</li><li>Determining optimal inventory allocation requires manual cross-referencing.</li><li>Decisions are often based on intuition and rough estimates under tight deadlines.</li><li>Inventory decisions are inconsistent across team members, leading to inefficiencies.</li></ul></div>
-        <div class="ab"><h4>Agent</h4><ul><li>Analyzes current inventory levels and explores various scenarios automatically.</li><li>Using advanced algorithms, generates a range of optimized decision options.</li><li>Evaluates the trade-offs of each decision option with full data support.</li><li>Planners review AI-generated options and execute with confidence.</li></ul></div>
+        <div class="nb2"><h4>Need</h4><ul><li>Analysts spend hours manually analyzing inventory data.</li><li>Determining optimal inventory allocation requires manual cross-referencing.</li><li>Decisions are often based on intuition under tight deadlines.</li><li>Inventory decisions are inconsistent across team members.</li></ul></div>
+        <div class="ab"><h4>Agent</h4><ul><li>Analyzes current inventory levels and explores scenarios automatically.</li><li>Using advanced algorithms, generates a range of optimized decision options.</li><li>Evaluates the trade-offs of each decision option with full data support.</li><li>Planners review AI-generated options and execute with confidence.</li></ul></div>
       </div>
       <div class="video-label"><svg><use href="#s-play"/></svg>Demo Video</div><div class="vw"><video controls preload="metadata"><source src="media7.mp4" type="video/mp4">Your browser does not support video.</video></div>
     </div>
+  </div>
+  <div class="page-footer-btns">
+    <button class="pnb pnb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      BACK
+    </button>
+    <button class="pnb pnb-ss" onclick="startScreensaver()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      SCREENSAVER
+    </button>
   </div>
   <footer><p>&copy; 2026 SAP SE. All rights reserved.</p></footer>
 </div>
@@ -1070,6 +1188,16 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <p style="margin-top:18px;font-size:12px;color:var(--mu);position:relative;z-index:1;">Opens in a new tab. Use your browser Back button to return here.</p>
     </div>
   </div>
+  <div class="page-footer-btns">
+    <button class="pnb pnb-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      BACK
+    </button>
+    <button class="pnb pnb-ss" onclick="startScreensaver()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      SCREENSAVER
+    </button>
+  </div>
   <footer><p>&copy; 2026 SAP SE. All rights reserved.</p></footer>
 </div>
 
@@ -1077,35 +1205,30 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 <button id="jfab" onclick="toggleJoule()" title="Open SAP Joule AI Assistant">
   <svg class="jfs" width="34" height="33" viewBox="0 0 100 97" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="jfab-fill" x1="30%" y1="0%" x2="70%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="55%" stop-color="#e0c8ff"/>
-      <stop offset="100%" stop-color="#AB19E0"/>
+    <linearGradient id="jfab-ga" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#f0e6ff"/>
+      <stop offset="100%" stop-color="#d4b3ff"/>
     </linearGradient>
-    
-    <filter id="jfab-glow" x="-25%" y="-25%" width="150%" height="150%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="jfab-stroke-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feFlood flood-color="#93c5fd" flood-opacity="0.6" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="shadow"/>
-      <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="jfab-star-glow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
+    <linearGradient id="jfab-gb" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c9a7fb" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="jfab-gc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.65"/><stop offset="100%" stop-color="#fff" stop-opacity="0.1"/>
+    </linearGradient>
   </defs>
-  <!-- Main gem fill with body glow -->
-  <path class="jfs-joule-gem-body" 
-    d="M50.0,3.0 C65.0,3.0 78.0,3.0 84.0,6.0 L99.0,32.0 C99.0,33.0 99.0,34.0 98.0,35.0 L50.0,97.0 L2.0,35.0 C1.0,34.0 1.0,33.0 1.0,32.0 L16.0,6.0 C22.0,3.0 35.0,3.0 50.0,3.0 Z"
-    fill="url(#jfab-fill)" filter="url(#jfab-glow)"/>
-  <!-- 4-point star sparkle in center -->
-  <path class="jfs-joule-star"
-    d="M50.0,32.0 L53.0,43.0 L64.0,46.0 L53.0,49.0 L50.0,60.0 L47.0,49.0 L36.0,46.0 L47.0,43.0 Z"
-    fill="rgba(97,50,253,0.7)" filter="url(#jfab-star-glow)"/>
+  <path d="M50,3 C65,3 78,3 84,6 L99,32 C99,33 99,34 98,35 L50,97 L2,35 C1,34 1,33 1,32 L16,6 C22,3 35,3 50,3 Z" fill="url(#jfab-ga)"/>
+  <polygon points="50,3 28,16 18,34 35,25" fill="rgba(255,255,255,0.45)"/>
+  <polygon points="50,3 72,16 82,34 65,25" fill="rgba(255,255,255,0.22)"/>
+  <polygon points="35,25 50,3 65,25 70,34 50,28 30,34" fill="url(#jfab-gc)"/>
+  <line x1="18" y1="34" x2="82" y2="34" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
+  <path d="M50,3 C65,3 78,3 84,6 L99,32 C99,33 99,34 98,35 L50,97 L2,35 C1,34 1,33 1,32 L16,6 C22,3 35,3 50,3 Z" fill="url(#jfab-gb)" clip-path="polygon(0 35%, 100% 35%, 100% 100%, 0 100%)"/>
+  <polygon points="18,34 34,68 50,34" fill="rgba(255,255,255,0.18)"/>
+  <polygon points="82,34 66,68 50,34" fill="rgba(255,255,255,0.07)"/>
+  <circle cx="50" cy="97" r="2.5" fill="rgba(255,255,255,0.8)"/>
+  <path d="M22,8 L23.5,14 L30,15.5 L23.5,17 L22,23 L20.5,17 L14,15.5 L20.5,14 Z" fill="white" opacity="0.9"/>
+  <path d="M80,12 L81,16 L85,17 L81,18 L80,22 L79,18 L75,17 L79,16 Z" fill="white" opacity="0.78"/>
+  <path d="M90,3 L91,6 L94,7 L91,8 L90,11 L89,8 L86,7 L89,6 Z" fill="white" opacity="0.62"/>
 </svg>
 </button>
 
@@ -1121,35 +1244,39 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <div class="jw" id="jw">
     <div class="jdiam"><svg width="120" height="117" viewBox="0 0 100 97" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="jdia-fill" x1="30%" y1="0%" x2="70%" y2="100%">
-      <stop offset="0%" stop-color="#6132FD"/>
-      <stop offset="55%" stop-color="#923CF8"/>
-      <stop offset="100%" stop-color="#AB19E0"/>
+    <linearGradient id="jdia-ga" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#f5eeff"/>
+      <stop offset="65%" stop-color="#d4b3ff"/><stop offset="100%" stop-color="#a855f7"/>
     </linearGradient>
-    
-    <filter id="jdia-glow" x="-25%" y="-25%" width="150%" height="150%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <linearGradient id="jdia-gb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b890ff" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.42"/>
+    </linearGradient>
+    <linearGradient id="jdia-gc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.72"/><stop offset="100%" stop-color="#fff" stop-opacity="0.12"/>
+    </linearGradient>
+    <filter id="jdia-fw" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="jdia-stroke-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feFlood flood-color="#67e8f9" flood-opacity="0.6" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="shadow"/>
-      <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="jdia-star-glow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="jdia-fs" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <!-- Main gem fill with body glow -->
-  <path class="jdia-joule-gem-body" 
-    d="M50.0,3.0 C65.0,3.0 78.0,3.0 84.0,6.0 L99.0,32.0 C99.0,33.0 99.0,34.0 98.0,35.0 L50.0,97.0 L2.0,35.0 C1.0,34.0 1.0,33.0 1.0,32.0 L16.0,6.0 C22.0,3.0 35.0,3.0 50.0,3.0 Z"
-    fill="url(#jdia-fill)" filter="url(#jdia-glow)"/>
-  <!-- 4-point star sparkle in center -->
-  <path class="jdia-joule-star"
-    d="M50.0,32.0 L53.0,43.0 L64.0,46.0 L53.0,49.0 L50.0,60.0 L47.0,49.0 L36.0,46.0 L47.0,43.0 Z"
-    fill="white" filter="url(#jdia-star-glow)"/>
+  <ellipse cx="50" cy="105" rx="28" ry="4" fill="rgba(168,85,247,0.3)" filter="url(#jdia-fw)"/>
+  <path d="M50,4 C65,4 78,4 84,7 L99,33 C99,34 99,35 98,36 L50,97 L2,36 C1,35 1,34 1,33 L16,7 C22,4 35,4 50,4 Z" fill="url(#jdia-ga)" filter="url(#jdia-fw)"/>
+  <polygon points="50,4 28,17 18,35 35,26" fill="rgba(255,255,255,0.5)"/>
+  <polygon points="50,4 72,17 82,35 65,26" fill="rgba(255,255,255,0.22)"/>
+  <polygon points="35,26 50,4 65,26 70,35 50,29 30,35" fill="url(#jdia-gc)"/>
+  <line x1="18" y1="35" x2="82" y2="35" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+  <path d="M50,35 L2,36 L34,69 L50,103 L66,69 L98,36 Z" fill="url(#jdia-gb)" filter="url(#jdia-fw)"/>
+  <polygon points="18,35 34,69 50,35" fill="rgba(255,255,255,0.2)"/>
+  <polygon points="82,35 66,69 50,35" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="50" cy="100" r="3" fill="rgba(255,255,255,0.9)" filter="url(#jdia-fs)"/>
+  <g filter="url(#jdia-fs)"><path d="M19,6 L21,14 L29,16 L21,18 L19,26 L17,18 L9,16 L17,14 Z" fill="white" opacity="0.93"/></g>
+  <g filter="url(#jdia-fs)"><path d="M80,10 L82,17 L89,19 L82,21 L80,28 L78,21 L71,19 L78,17 Z" fill="white" opacity="0.8"/></g>
+  <path d="M6,28 L7,32 L11,33 L7,34 L6,38 L5,34 L1,33 L5,32 Z" fill="white" opacity="0.5"/>
 </svg></div>
     <div class="jgr"><div class="hello">Hello,</div><div class="how">How can I help you?</div></div>
     <button class="jqb" onclick="startChat()">Talk to me naturally.</button>
@@ -1167,100 +1294,59 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 </div>
 
 <script>
-// ===== PARTICLES =====
-(function(){
-  var canvas=document.getElementById('particles-canvas');
-  var ctx=canvas.getContext('2d');
-  var W=canvas.width=window.innerWidth,H=canvas.height=window.innerHeight;
-  var pts=[];
-  for(var i=0;i<60;i++){
-    pts.push({
-      x:Math.random()*W,y:Math.random()*H,
-      vx:(Math.random()-.5)*0.5,vy:(Math.random()-.5)*0.5,
-      r:Math.random()*1.8+0.5,
-      c:['rgba(97,50,253,0.6)','rgba(146,60,248,0.5)','rgba(171,25,224,0.4)','rgba(255,255,255,0.3)'][Math.floor(Math.random()*4)],
-      pulse:Math.random()*Math.PI*2
-    });
-  }
-  function drawParticles(){
-    ctx.clearRect(0,0,W,H);
-    pts.forEach(function(p){
-      p.x+=p.vx;p.y+=p.vy;p.pulse+=0.02;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-      var alpha=0.4+Math.sin(p.pulse)*0.3;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*(1+Math.sin(p.pulse)*0.3),0,Math.PI*2);
-      ctx.fillStyle=p.c;ctx.globalAlpha=alpha;ctx.fill();ctx.globalAlpha=1;
-    });
-    // Draw connections
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
-        var dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<120){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle='rgba(97,50,253,'+(0.15*(1-dist/120))+')';
-          ctx.lineWidth=0.5;ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-  window.addEventListener('resize',function(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;});
-})();
+var jOpen=false,jStarted=false,chatHistory=[],SYS="You are Joule, SAP IBP AI assistant. Answer questions about SAP Integrated Business Planning, its AI agents, Joule copilot, embedded AI features, supply chain planning, and how to navigate the platform. Be concise and helpful.";
 
-// ===== SCROLL EFFECTS =====
-window.addEventListener('scroll',function(){
-  var nav=document.getElementById('topnav');
-  var bar=document.getElementById('progress-bar');
-  var scrollPct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
-  bar.style.width=Math.min(scrollPct,100)+'%';
-  if(window.scrollY>20)nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
+function getAnswer(q){
+  q=q.toLowerCase();
+  if(q.match(/hello|hi |hey|good morning|greetings/)){
+    return "Hello! I am Joule, your SAP IBP AI assistant. Ask me about SAP IBP, AI Agents, SAP Joule, Embedded AI, Value Journeys, or supply chain planning.";}
+  if(q.match(/what is (sap )?ibp|about ibp|explain ibp|ibp overview/)){
+    return "SAP Integrated Business Planning (SAP IBP) is a cloud-based supply chain planning suite on SAP BTP. It unifies Demand Planning, Supply Planning, Inventory Optimization, and S&OP. Key features: SAP HANA real-time analytics, embedded AI/ML, Excel Add-in, S/4HANA integration. Go to About IBP for official resources.";}
+  if(q.match(/joule|copilot|conversational ai/)){
+    return "SAP Joule is the AI copilot in SAP IBP with 4 capabilities: (1) Conversational AI - natural language planning, (2) Exception Analysis - root-cause of alerts, (3) Planning Insights - AI demand and supply insights, (4) Automated Actions - workflow execution via chat. Access at my400315.scmibp.ondemand.com.";}
+  if(q.match(/footprint|sustainability|emission|carbon|lena/)){
+    return "Footprint Optimization Agent (Lab Preview) - Persona: Lena, Sustainability Expert. Steps: (1) Find Hotspots - analyzes emission hotspots, (2) Identify Levers - suggests reduction actions, (3) Run Simulation - creates scenario parameters, (4) Compare Results - highlights changes vs baseline. Value: hours not weeks.";}
+  if(q.match(/inventory investment|inventory allocation|peter|strategic precision/)){
+    return "Inventory Investment Allocation Agent (Lab Preview) - Persona: Peter, Inventory Analyst. Tagline: From manual guesswork to strategic precision. Steps: (1) Inventory Analysis and Scenario Exploration, (2) AI-Driven Decision Generation, (3) Impact Assessment and Trade-off Evaluation, (4) Interactive Decision Support and Execution.";}
+  if(q.match(/exception management|planning assistant agent|lisa|alert triage|root.cause/)){
+    return "Exception Management Agent (Beta Shipped) - Persona: Lisa, Supply Network Planner. Capabilities: Exception Detection and Classification, Root-Cause Analysis, Resolution Options and Decision Guidance, Workflow and Task Orchestration. Scope: Demand Fulfilment at Risk, Inventory Rebalancing, Resource Utilisation, Component Shortage.";}
+  if(q.match(/component shortage|bom|bill of material/)){
+    return "Component Shortage Monitoring Agent (Beta Shipped): Continuously monitors BOM component availability, identifies shortage risks before they impact production, surfaces resolution options. Part of the Exception Management framework.";}
+  if(q.match(/customer orders|order confirmation/)){
+    return "Customer Orders Confirmation Agent (Beta Shipped): Automates customer order confirmations, identifies cross-order issues, resolves exceptions faster. A Pharma variant also exists for GDP and serialization compliance.";}
+  if(q.match(/capacity shortage|long.term capacity|resource capacity/)){
+    return "Long-Term Resource Capacity Shortage Agent (Beta Shipped): Monitors long-term planning horizon for resource capacity shortfalls, enables proactive mitigation before production disruptions occur.";}
+  if(q.match(/order deployment/)){
+    return "Order Deployment Confirmation Agent (Beta Shipped): Automates order deployment confirmation workflows, reduces supply chain execution latency, ensures timely order fulfillment.";}
+  if(q.match(/how many agents|list.*agents|all agents|8 agents|show.*agents/)){
+    return "SAP IBP has 8 AI Agents. Beta Shipped: (1) Exception Management, (2) Customer Orders Confirmation, (3) Long-Term Capacity Shortage, (4) Customer Orders Pharma, (5) Order Deployment Confirmation, (6) Component Shortage Monitoring. Lab Preview: (7) Footprint Optimization, (8) Inventory Investment Allocation. See all in the AI Agents page.";}
+  if(q.match(/ai agent|autonomous agent|agent/)){
+    return "SAP IBP has 8 AI Agents in the Planning Assistant framework. 6 are Beta Shipped (production ready) and 2 are Lab Preview. They cover exception management, order confirmations, capacity planning, sustainability, and inventory allocation. Click AI Agents in the AI in IBP section to explore each with demo videos.";}
+  if(q.match(/demand sensing|pos data|short.horizon|near.term forecast/)){
+    return "Demand Sensing: Uses near-term signals (POS data, shipments) to improve 0-4 week forecasts using ML. Operates daily or weekly, significantly reduces short-horizon forecast error. Available as video demo in AI in IBP > Embedded AI.";}
+  if(q.match(/demand forecast|forecasting|mape|forecast accuracy|outlier/)){
+    return "Demand Forecasting in SAP IBP: Statistical forecasting (40+ algorithms), ML models, Demand Sensing (near-term), Automatic Outlier Correction, Forecast Results Analysis, Curve Based Planning. Explore the IVJ: Demand Forecasting with AI under Business Process.";}
+  if(q.match(/embedded ai|discovery center|13 feature|ai feature/)){
+    return "SAP IBP has 13 Embedded AI capabilities. Video Demos: Excel Add-in AI, Automatic Outlier Correction, Curve Based Planning, Demand Sensing, Forecast Results Analysis, Master Data Consistency Check. Screen Demos: Inventory Optimization, Lead Time Management, ML Alerts, MRO Analysis, Outlier Detection, Supply Optimization, Security Check.";}
+  if(q.match(/value journey|ivj|interactive value|business process/)){
+    return "6 Interactive Value Journeys (IVJs) under Business Process: (1) Demand Forecasting with AI, (2) Risk Resilient Supply Chain, (3) Custom Alerts with AI, (4) Navigate Supply Chain Disruptions, (5) AI-Powered Resilient Supply Chain, (6) Generative AI Planning Assistant by Joule. Click Business Process to access all.";}
+  if(q.match(/game|platformer|gamified/)){
+    return "The Platformer is a gamified interactive learning experience for SAP IBP. Navigate supply chain challenges and make real-time planning decisions. Click IBP Game in the top navigation.";}
+  if(q.match(/roi|return on investment|value calculator|ibp value/)){
+    return "SAP IBP Value / ROI Calculator quantifies benefits across service levels, inventory reduction, and operational efficiency. Access under About IBP > SAP IBP Value.";}
+  if(q.match(/navigate|how to|where is|find|go to/)){
+    return "Platform Navigation: Home (overview), About IBP (resources and ROI), Business Process (6 IVJs), AI in IBP (Joule, Embedded AI, AI Agents tabs), AI Agents (8 agents with videos), IBP Game (The Platformer).";}
+  if(q.match(/s4hana|erp|integration/)){
+    return "SAP IBP integrates natively with SAP S/4HANA: bi-directional master data and transaction data, real-time inventory, confirmed planned orders flow to MRP, financial alignment with CO/FI, direct integration via SAP Integration Suite on BTP.";}
+  if(q.match(/help|what can you|your capabilities|what do you know/)){
+    return "I am Joule, your SAP IBP AI assistant. Ask me about: What is SAP IBP, AI Agents (all 8), SAP Joule copilot, Demand Sensing, Footprint Optimization Agent, Inventory Investment Agent, Value Journeys, Embedded AI (13 features), IBP Game, S/4HANA integration, or how to navigate the platform.";}
+  return "I can help with SAP IBP topics. Try asking about: What is SAP IBP, AI Agents, SAP Joule, Demand Sensing, Footprint Optimization, Inventory Investment Allocation, Value Journeys, Embedded AI features, IBP Game, or platform navigation.";}
 
-// ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
-var observer=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      var el=e.target;
-      var delay=el.getAttribute('data-delay')||0;
-      setTimeout(function(){el.classList.add('visible');},parseInt(delay));
-      observer.unobserve(el);
-    }
-  });
-},{threshold:0.1});
-
-function observeAnimated(){
-  document.querySelectorAll('.hc,.eai').forEach(function(el){
-    observer.observe(el);
-  });
-}
-
-// ===== COUNTER ANIMATION =====
-function animateCounters(){
-  document.querySelectorAll('[data-count]').forEach(function(el){
-    var target=parseInt(el.getAttribute('data-count'));
-    var current=0;
-    var step=Math.ceil(target/20);
-    var timer=setInterval(function(){
-      current+=step;
-      if(current>=target){current=target;clearInterval(timer);}
-      el.textContent=current;
-    },60);
-  });
-}
-
-// ===== PAGE NAVIGATION =====
-var jOpen=false,jStarted=false,SYS="You are Joule, SAP's AI copilot for the SAP IBP Interactive Platform. Answer questions about SAP IBP concisely and helpfully.\\n\\nCONTENT KNOWLEDGE:\\nHOME: Overview page with cards linking to About IBP, Business Processes, AI in IBP, AI Agents, IBP Game.\\n\\nABOUT SAP IBP: Links to SAP IBP Annual Report (sap.com) and SAP IBP Main Page. IBP covers Demand Planning, Supply Planning, Inventory Optimization, S&OP.\\n\\nBUSINESS PROCESSES - Interactive Value Journeys (IVJ):\\n1. Demand Forecasting with AI\\n2. Better Planning for Risk Resilient and Sustainable Supply Chain\\n3. Custom Alerts with SAP IBP & AI\\n4. Intelligently Navigate through Supply Chain Disruptions\\n5. AI-Powered Resilient Supply Chain\\n6. Generative AI in SAP IBP - Planning Assistant powered by Joule (Vision)\\n\\nAI IN SAP IBP has 3 areas:\\nSAP JOULE: AI copilot in IBP with Conversational AI, Exception Analysis, Planning Insights, Automated Actions. Access at my400315.scmibp.ondemand.com.\\n\\nEMBEDDED AI (Videos from SAP Discovery Center): Excel Add-in AI Planning Assistant, Automatic Outlier Correction, Curve Based Planning, Demand Sensing, Forecast Results Analysis, Master Data Consistency Check.\\nEMBEDDED AI (Screens): Inventory Optimization Results Analysis, Lead Time Master Data Management, Machine Learning Alerts, MRO Inventory Analysis, Outlier Job Detection, Supply Optimization Analysis, System Security Check.\\n\\nAI AGENTS (8 total):\\n1. Exception Management/Planning Assistant (Lisa, Supply Network Planner) - Beta Shipped. Parses IBP alerts, root-cause analysis, resolution options. 4 capabilities: Exception Detection & Classification, Root-Cause Analysis, Resolution Options & Decision Guidance, Workflow & Task Orchestration. Scope: Demand Fulfilment at Risk, Inventory Rebalancing, Resource Utilisation, Component Shortage.\\n2. Customer Orders Confirmation Agent - automates order confirmations, cross-order issue detection.\\n3. Long-Term Resource Capacity Shortage Agent - monitors long-term capacity shortfalls.\\n4. Customer Orders Confirmation for Pharma Industry - pharma-specific compliance.\\n5. Order Deployment Confirmation Agent - order deployment workflow automation.\\n6. Component Shortage Monitoring Agent - BOM component shortage tracking.\\n7. Footprint Optimization Agent (Lena, Sustainability Expert) - Lab Preview. Steps: Find Hotspots, Identify Levers, Run Simulation, Compare Results.\\n8. Inventory Investment Allocation Agent (Peter, Inventory Analyst) - Lab Preview. Steps: Inventory Analysis & Scenario Exploration, AI-Driven Decision Generation, Impact Assessment & Trade-off Evaluation, Interactive Decision Support & Execution. Tagline: From manual guesswork to strategic precision.\\n\\nIBP GAME: The Platformer - gamified interactive learning experience for SAP IBP.\\n\\nSuggest relevant pages to navigate to. Be concise and professional.";
+var pageHistory=[];
+var currentPage='home';
 
 function showPage(id){
-  // Stop all playing videos when navigating
-  document.querySelectorAll('video').forEach(function(v){
-    if(!v.paused){v.pause();}
-  });
+  document.querySelectorAll('video').forEach(function(v){if(!v.paused)v.pause();});
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active','entering');});
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
   var p=document.getElementById('page-'+id);
@@ -1271,13 +1357,52 @@ function showPage(id){
   setTimeout(observeAnimated,100);
   if(id==='home')setTimeout(animateCounters,400);
   showToast('Navigating to '+id.charAt(0).toUpperCase()+id.slice(1));
+  // Track history
+  if(currentPage && currentPage!==id){
+    pageHistory.push(currentPage);
+    if(pageHistory.length>20)pageHistory=pageHistory.slice(-20);
+  }
+  currentPage=id;
 }
 
+function goBack(){
+  if(pageHistory.length>0){
+    var prev=pageHistory.pop();
+    currentPage=prev;
+    // Navigate without pushing to history again
+    document.querySelectorAll('video').forEach(function(v){if(!v.paused)v.pause();});
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active','entering');});
+    document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active');});
+    var p=document.getElementById('page-'+prev);
+    if(p){p.classList.add('active');requestAnimationFrame(function(){p.classList.add('entering');});}
+    var n=document.getElementById('nav-'+prev);
+    if(n)n.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(observeAnimated,100);
+    showToast('Back to '+prev.charAt(0).toUpperCase()+prev.slice(1));
+  } else {
+    showPage('home');
+  }
+}
+
+function startScreensaver(){
+  showToast('Screensaver mode - video will be added soon');
+  // Placeholder: will be linked to a video in the future
+  var overlay=document.getElementById('ss-overlay');
+  if(!overlay){
+    overlay=document.createElement('div');
+    overlay.id='ss-overlay';
+    overlay.style.cssText='position:fixed;inset:0;z-index:9000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;';
+    var msg=document.createElement('div');
+    msg.style.cssText='text-align:center;color:#fff;';
+    msg.innerHTML='<div style="font-size:64px;margin-bottom:24px;color:#923CF8;opacity:0.8"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><h2 style="font-size:28px;font-weight:800;background:linear-gradient(90deg,#6132FD,#923CF8,#AB19E0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;">Screensaver Mode</h2><p style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:8px;">Video will be added soon</p><p style="color:rgba(255,255,255,0.3);font-size:12px;">Click anywhere to return</p>';
+    overlay.appendChild(msg);
+    overlay.onclick=function(){document.body.removeChild(overlay);};
+    document.body.appendChild(overlay);
+  }
+}
 function showAiTab(id){
-  // Stop all videos
-  document.querySelectorAll('video').forEach(function(v){
-    if(!v.paused){v.pause();}
-  });
+  document.querySelectorAll('video').forEach(function(v){if(!v.paused)v.pause();});
   document.querySelectorAll('.asub').forEach(function(s){s.classList.remove('active');});
   document.querySelectorAll('.at').forEach(function(t){t.classList.remove('active');});
   var s=document.getElementById('asub-'+id),t=document.getElementById('tab-'+id);
@@ -1285,12 +1410,8 @@ function showAiTab(id){
   if(t)t.classList.add('active');
   setTimeout(observeAnimated,50);
 }
-
 function showAgent(id){
-  // Stop all videos when switching agents
-  document.querySelectorAll('video').forEach(function(v){
-    if(!v.paused){v.pause();}
-  });
+  document.querySelectorAll('video').forEach(function(v){if(!v.paused)v.pause();});
   document.querySelectorAll('.ad').forEach(function(d){d.classList.remove('active');});
   document.querySelectorAll('.ach').forEach(function(c){c.classList.remove('active');});
   var d=document.getElementById('agent-'+id),c=document.getElementById('chip-'+id);
@@ -1298,91 +1419,128 @@ function showAgent(id){
   if(c)c.classList.add('active');
   if(d)d.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-
-// ===== TOAST =====
-function showToast(msg){
-  var t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(window._toastTimer);
-  window._toastTimer=setTimeout(function(){t.classList.remove('show');},1800);
-}
-
-// ===== JOULE =====
 function toggleJoule(){
   jOpen=!jOpen;
   document.getElementById('jd').classList.toggle('open',jOpen);
-  if(jOpen&&!jStarted){
-    setTimeout(function(){
-      document.getElementById('jw').style.opacity='1';
-    },300);
-  }
 }
-
 function startChat(){
   jStarted=true;
+  chatHistory=[];
   var jw=document.getElementById('jw');
-  jw.style.transition='all 0.3s';jw.style.opacity='0';jw.style.transform='scale(0.9)';
+  jw.style.transition='all 0.3s';
+  jw.style.opacity='0';
+  jw.style.transform='scale(0.9)';
   setTimeout(function(){
     jw.style.display='none';
-    // Switch dialog to chat mode (white lower section)
     document.getElementById('jd').classList.add('chat-mode');
-    var ca=document.getElementById('jca');ca.classList.add('vis');
-    addMsg('b','Hi! I am Joule, your AI assistant for SAP IBP. Ask me anything about planning capabilities, AI agents, business processes, or how to navigate this platform. &#128170;');
+    var ca=document.getElementById('jca');
+    ca.classList.add('vis');
+    addMsg('b','Hi! I am Joule, your SAP IBP AI assistant. I can answer questions about IBP capabilities, AI agents, and supply chain planning. What would you like to know?');
+    var sugWrap=document.createElement('div');
+    sugWrap.className='j-suggestions';
+    ca.insertBefore(sugWrap,document.getElementById('jty'));
+    var sugs=['What is SAP IBP?','Tell me about the AI Agents','How does SAP Joule work?','Footprint Optimization Agent','Value Journeys','Demand Sensing'];
+    sugs.forEach(function(s){
+      var btn=document.createElement('button');
+      btn.className='j-sug-btn';
+      btn.textContent=s;
+      btn.onclick=function(){
+        sugWrap.remove();
+        document.getElementById('jta').value=s;
+        sendMsg();
+      };
+      sugWrap.appendChild(btn);
+    });
     document.getElementById('jta').focus();
   },300);
 }
-
 function addMsg(t,txt){
   var ca=document.getElementById('jca');
   var m=document.createElement('div');
-  m.className='jm '+t;m.innerHTML=txt;
+  m.className='jm '+t;
+  m.innerHTML=txt.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
   ca.insertBefore(m,document.getElementById('jty'));
   ca.scrollTop=ca.scrollHeight;
 }
-
 function sendMsg(){
   if(!jStarted)startChat();
   var ta=document.getElementById('jta');
-  var txt=ta.value.trim();if(!txt)return;
-  ta.value='';addMsg('u',txt);
+  var txt=ta.value.trim();
+  if(!txt)return;
+  ta.value='';
+  addMsg('u',txt);
   document.getElementById('jty').classList.add('vis');
   document.getElementById('jca').scrollTop=99999;
-  callAI(txt);
+  setTimeout(function(){
+    document.getElementById('jty').classList.remove('vis');
+    addMsg('b',getAnswer(txt));
+  },600);
 }
-
-document.getElementById('jta').addEventListener('keydown',function(e){
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
+document.addEventListener('DOMContentLoaded',function(){
+  var ta=document.getElementById('jta');
+  if(ta){ta.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});}
 });
-
-async function callAI(msg){
-  try{
-    var r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:SYS,messages:[{role:'user',content:msg}]})
-    });
-    var d=await r.json();
-    document.getElementById('jty').classList.remove('vis');
-    var reply='I am here to help with SAP IBP. Try asking about AI Agents, Joule, Embedded AI, or Business Processes.';
-    if(d.content&&d.content[0]&&d.content[0].text)reply=d.content[0].text;
-    addMsg('b',reply.replace(/\n/g,'<br>'));
-  }catch(e){
-    document.getElementById('jty').classList.remove('vis');
-    addMsg('b','Ask me about SAP IBP AI Agents, SAP Joule, Embedded AI capabilities, or Business Processes.');
-  }
-}
-
 function expandJ(){
   var d=document.getElementById('jd');
   if(d.style.width==='570px'){d.style.width='';d.style.height='';}
   else{d.style.width='570px';d.style.height='76vh';}
 }
-
-// ===== INIT =====
+(function(){
+  var c=document.getElementById('particles-canvas');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  var W=c.width=window.innerWidth,H=c.height=window.innerHeight;
+  var pts=[];
+  for(var i=0;i<50;i++){
+    pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*1.8+.5,cl:['rgba(97,50,253,.6)','rgba(146,60,248,.5)','rgba(171,25,224,.4)','rgba(255,255,255,.3)'][Math.floor(Math.random()*4)],p:Math.random()*Math.PI*2});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.p+=.02;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      var a=.4+Math.sin(p.p)*.3;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1+Math.sin(p.p)*.3),0,Math.PI*2);
+      ctx.fillStyle=p.cl;ctx.globalAlpha=a;ctx.fill();ctx.globalAlpha=1;
+    });
+    for(var i=0;i<pts.length;i++){for(var j=i+1;j<pts.length;j++){
+      var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(97,50,253,'+(0.15*(1-dist/120))+')';ctx.lineWidth=.5;ctx.stroke();}
+    }}
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize',function(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;});
+})();
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('progress-bar');
+  if(b){var pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;b.style.width=Math.min(pct,100)+'%';}
+  var nav=document.getElementById('topnav');
+  if(nav){if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');}
+});
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){var d=e.target.getAttribute('data-delay')||0;setTimeout(function(){e.target.classList.add('visible');},parseInt(d));observer.unobserve(e.target);}
+  });
+},{threshold:.1});
+function observeAnimated(){document.querySelectorAll('.hc,.eai').forEach(function(el){observer.observe(el);});}
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var target=parseInt(el.getAttribute('data-count')),cur=0,step=Math.ceil(target/20);
+    var t=setInterval(function(){cur+=step;if(cur>=target){cur=target;clearInterval(t);}el.textContent=cur;},60);
+  });
+}
+function showToast(msg){
+  var t=document.getElementById('toast');if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(window._tt);
+  window._tt=setTimeout(function(){t.classList.remove('show');},1800);
+}
 window.addEventListener('load',function(){
-  observeAnimated();
-  animateCounters();
+  observeAnimated();animateCounters();
   setTimeout(function(){if(!jOpen)toggleJoule();},1800);
 });
 </script>
+
 </body>
 </html>
