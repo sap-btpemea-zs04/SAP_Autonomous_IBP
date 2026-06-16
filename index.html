@@ -182,10 +182,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   transition:all 0.3s;cursor:default;}
 .ic2:hover{background:rgba(97,50,253,.15);transform:translateY(-3px);
   box-shadow:0 8px 24px rgba(97,50,253,0.2);}
-.ic2 svg{width:28px;height:28px;stroke:var(--c2);fill:none;stroke-width:1.6;transition:transform 0.3s;}
+.ic2 svg{width:36px;height:36px;stroke:var(--c2);fill:none;stroke-width:1.6;transition:transform 0.3s;}
 .ic2:hover svg{transform:scale(1.2) rotate(5deg);filter:drop-shadow(0 0 8px rgba(146,60,248,0.7));}
 .ic2-t{font-weight:700;font-size:13.5px;margin:8px 0 4px;}
-.ic2-s{font-size:11.5px;color:var(--mu);}
+.ic2-s{font-size:10.5px;color:var(--mu);line-height:1.4;}
 
 /* ===== BUSINESS PROCESSES ===== */
 .bp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -762,6 +762,58 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   border-color: var(--c3);
   box-shadow: 0 8px 28px rgba(171,25,224,0.4);
 }
+
+/* ===== SCREENSAVER ===== */
+#ibp-screensaver {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #000;
+  cursor: pointer;
+}
+#ibp-screensaver.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#ibp-screensaver video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#ibp-ss-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 100000;
+  background: rgba(0,0,0,0.55);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 50px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#ibp-ss-close:hover {
+  background: rgba(97,50,253,0.6);
+  border-color: rgba(146,60,248,0.8);
+}
+#ibp-ss-close svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
 </style>
 </head>
 <body>
@@ -820,6 +872,24 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
   <symbol id="s-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="s-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
   <symbol id="s-arrow-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <!-- Analytics bar chart for Demand Planning -->
+  <symbol id="s-analytics" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
+  </symbol>
+  <!-- Truck for Supply Planning -->
+  <symbol id="s-truck2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+  </symbol>
+  <!-- 3D box/container for Inventory Optimization -->
+  <symbol id="s-inventory" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+  </symbol>
+  <!-- Pyramid shape for IBP Foundation -->
+  <symbol id="s-pyramid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12,2 22,20 2,20"/>
+    <line x1="2" y1="20" x2="22" y2="20"/>
+    <line x1="7" y1="13" x2="17" y2="13"/>
+  </symbol>
 </svg>
 
 <!-- NAV -->
@@ -900,10 +970,10 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
       <h3 style="font-size:21px;font-weight:800;margin-bottom:14px;color:#c9a7fb;">What is SAP IBP?</h3>
       <p style="color:var(--txt);line-height:1.85;font-size:14.5px;">SAP Integrated Business Planning (SAP IBP) is a cloud-based supply chain planning solution that connects sales, finance, and operations in one unified platform. It enables organizations to plan collaboratively across the supply chain &mdash; from demand sensing and forecasting to inventory optimization and supply network planning &mdash; all enhanced with embedded AI and machine learning.</p>
       <div class="info-grid">
-        <div class="ic2"><svg><use href="#s-target"/></svg><div class="ic2-t">Demand Planning</div><div class="ic2-s">AI-powered forecasting</div></div>
-        <div class="ic2"><svg><use href="#s-pkg"/></svg><div class="ic2-t">Supply Planning</div><div class="ic2-s">End-to-end visibility</div></div>
-        <div class="ic2"><svg><use href="#s-coin"/></svg><div class="ic2-t">Inventory Optimization</div><div class="ic2-s">Smart stock levels</div></div>
-        <div class="ic2"><svg><use href="#s-net"/></svg><div class="ic2-t">S&amp;OP / IBP</div><div class="ic2-s">Aligned decisions</div></div>
+        <div class="ic2"><svg><use href="#s-analytics"/></svg><div class="ic2-t">Demand Planning</div><div class="ic2-s">Advanced Forecasting &amp; Demand Sensing</div></div>
+        <div class="ic2"><svg><use href="#s-truck2"/></svg><div class="ic2-t">Supply Planning</div><div class="ic2-s">Advanced Planning with Constraints</div></div>
+        <div class="ic2"><svg><use href="#s-inventory"/></svg><div class="ic2-t">Inventory Optimization</div><div class="ic2-s">Improved Inventory across your supply chain</div></div>
+        <div class="ic2"><svg><use href="#s-pyramid"/></svg><div class="ic2-t">IBP Foundation</div><div class="ic2-s">Foundational Supply Chain Planning with Risks &amp; Process Management Capabilities</div></div>
       </div>
     </div>
   </div>
@@ -1385,22 +1455,56 @@ function goBack(){
   }
 }
 
+// ===== SCREENSAVER =====
+var ssActive=false;
+var idleTimer=null;
+var IDLE_MS=5*60*1000; // 5 minutes exactly
+
 function startScreensaver(){
-  showToast('Screensaver mode - video will be added soon');
-  // Placeholder: will be linked to a video in the future
-  var overlay=document.getElementById('ss-overlay');
-  if(!overlay){
-    overlay=document.createElement('div');
-    overlay.id='ss-overlay';
-    overlay.style.cssText='position:fixed;inset:0;z-index:9000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;';
-    var msg=document.createElement('div');
-    msg.style.cssText='text-align:center;color:#fff;';
-    msg.innerHTML='<div style="font-size:64px;margin-bottom:24px;color:#923CF8;opacity:0.8"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><h2 style="font-size:28px;font-weight:800;background:linear-gradient(90deg,#6132FD,#923CF8,#AB19E0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;">Screensaver Mode</h2><p style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:8px;">Video will be added soon</p><p style="color:rgba(255,255,255,0.3);font-size:12px;">Click anywhere to return</p>';
-    overlay.appendChild(msg);
-    overlay.onclick=function(){document.body.removeChild(overlay);};
-    document.body.appendChild(overlay);
-  }
+  if(ssActive)return;
+  ssActive=true;
+  clearIdleTimer();
+  var ss=document.getElementById('ibp-screensaver');
+  var vid=document.getElementById('ibp-ss-video');
+  if(!ss||!vid)return;
+  ss.classList.add('active');
+  vid.currentTime=0;
+  vid.play().catch(function(){});
+  // Pause all other videos
+  document.querySelectorAll('video:not(#ibp-ss-video)').forEach(function(v){if(!v.paused)v.pause();});
 }
+
+function closeScreensaver(){
+  if(!ssActive)return;
+  ssActive=false;
+  var ss=document.getElementById('ibp-screensaver');
+  var vid=document.getElementById('ibp-ss-video');
+  if(vid){vid.pause();vid.currentTime=0;}
+  if(ss)ss.classList.remove('active');
+  // Return to homepage
+  showPage('home');
+  resetIdleTimer();
+}
+
+function resetIdleTimer(){
+  if(ssActive)return;
+  clearIdleTimer();
+  idleTimer=setTimeout(function(){startScreensaver();},IDLE_MS);
+}
+
+function clearIdleTimer(){
+  if(idleTimer){clearTimeout(idleTimer);idleTimer=null;}
+}
+
+// Listen for user activity to reset idle timer
+(function(){
+  var events=['mousemove','mousedown','keydown','touchstart','scroll','click','wheel'];
+  events.forEach(function(evt){
+    document.addEventListener(evt,function(){
+      if(!ssActive)resetIdleTimer();
+    },{passive:true});
+  });
+})();
 function showAiTab(id){
   document.querySelectorAll('video').forEach(function(v){if(!v.paused)v.pause();});
   document.querySelectorAll('.asub').forEach(function(s){s.classList.remove('active');});
@@ -1539,8 +1643,19 @@ function showToast(msg){
 window.addEventListener('load',function(){
   observeAnimated();animateCounters();
   setTimeout(function(){if(!jOpen)toggleJoule();},1800);
+  resetIdleTimer();
 });
 </script>
+
+
+<!-- IBP SCREENSAVER -->
+<div id="ibp-screensaver">
+  <video id="ibp-ss-video" src="IBP_ScreenSaver_Enhanced.mp4" loop playsinline preload="none"></video>
+  <button id="ibp-ss-close" onclick="closeScreensaver()">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    CLOSE &amp; RETURN HOME
+  </button>
+</div>
 
 </body>
 </html>
